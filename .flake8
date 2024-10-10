@@ -1,8 +1,8 @@
-#########################
-# Flake8 Configuration  #
-# (.flake8)             #
-# (formerly in tox.ini) #
-#########################
+##########################
+# Flake8 Configuration  ##
+# (.flake8)             ##
+# (formerly in tox.ini) ##
+##########################
 
 [flake8]
 ignore =
