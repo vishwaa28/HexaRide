@@ -6,7 +6,7 @@ What information is stored?
 ---------------------------
 This web application displays only emails as personal information.
 
-Getting Started
+Getting Started with project
 ---------------
 1. Install the requirements
 
