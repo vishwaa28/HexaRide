@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
 
-    var map = L.map('map').setView([21.038576,75.0582583], 13);
+    var map = L.map('map').setView([12.875505, 80.080417], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
 
-    var myHouse = L.marker([21.038576,75.0582583]);
+    var myHouse = L.marker([12.875505, 80.080417]);
 
     myHouse.addTo(map)
         .bindPopup('Meeting Point.')
@@ -33,6 +33,5 @@ $(document).ready(function () {
 
     map.on('dblclick', onMapClick);
 
-    $('#startDest').val([50.748547, 7.200279]);
-
+    $('#startDest').val([12.875505, 80.080417]);
 });

@@ -2,15 +2,13 @@
 
 """Models for the user interface application."""
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
 request_choices = (('P', 'Pending'), ('A', 'Accepted'), ('D', 'Declined'))
 
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name=None, last_name=None, contact_number=None, password=None):
-        """Create and save a User with the given email, date of birth, and password."""
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -36,7 +34,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -50,11 +48,9 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     # Profile Detail Fields
-    first_name = models.CharField(max_length=128, verbose_name="First Name", null=True)
-    last_name = models.CharField(max_length=128, verbose_name="Last Name", null=True)
-    contact_number = models.BigIntegerField(verbose_name="Contact Number", null=True)
-
-    objects = CustomUserManager()
+    first_name = models.CharField(max_length=128, verbose_name="First Name", null=True, blank=True)
+    last_name = models.CharField(max_length=128, verbose_name="Last Name", null=True, blank=True)
+    contact_number = models.BigIntegerField(verbose_name="Contact Number", null=True, blank=True)
 
     def get_name(self):
         return "{} {}".format(self.first_name, self.last_name)
@@ -62,11 +58,18 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         """Return if the user is a member of the staff."""
-        # Simplest possible answer: All admins are staff
         return self.is_admin
 
-    def __unicode__(self):
-        return "{} {}".format(self.first_name, self.last_name)
+    def has_perm(self, perm, obj=None):
+        """Does the user have a specific permission?"""
+        return self.is_admin
+
+    def has_module_perms(self, app_label):
+        """Does the user have permissions to view the app `app_label`?"""
+        return self.is_admin
+
+    def __str__(self):
+        return self.get_name() or self.email
 
 
 class Commute(models.Model):

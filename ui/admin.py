@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""Admin and related forms for the user interface application."""
-
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -18,10 +16,6 @@ class UserChangeForm(forms.ModelForm):
         fields = ['email', 'password']
 
     def clean_password(self):
-        # Regardless of what the user provides, return the
-        # initial value. This is done here, rather than on
-        # the field, because the field does not have access
-        # to the initial value
         return self.initial["password"]
 
 

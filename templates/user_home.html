@@ -8,19 +8,42 @@
     <meta name="author" content="">
     {% load static %}
     {% include "common.html" %}
-    <title>CarPool - Pool with the Cool</title>
+    <title>HexaRide</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
     <link href="{% static 'css/nav.css' %}" rel="stylesheet">
     <style>
+        body {
+    background-image: url("{% static 'img/commute_background.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust transparency here (0.5 = 50%) */
+    z-index: -1; /* Ensure this overlay stays behind all content */
+}
+        .inner-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
         .btn-xlarge {
-            padding: 18px 28px;
-            font-size: 20px;
+            font-size: 18px;
+            padding: 10px 30px;
             line-height: normal;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
             border-radius: 8px;
-            width: 90%;
+            width: 400px;
+            white-space: nowrap;
         }
 
         .desc {
@@ -32,9 +55,13 @@
         }
 
         .irow {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            width: 100%; /* Make the rows take full width */
+            margin: 15px 0; /* Add space between rows */
+            display: flex;
+            justify-content: center;
+
         }
+
 
     </style>
 </head>
@@ -48,57 +75,38 @@
         <p>
             There was an error storing your commute. You probably forgot to select the end destination. Please try.
             again.
-
-            Es gab ein Problem beim laden deine Mitfahrgelegenheit. Bitte versucht nochmal. Bist du sicher dass
-            du ein Ziel geklickt hast?
         </p>
     {% endif %}
-
+<div class="card">
     <div class="row inner-div">
         <div class="row irow">
             <div class="col-lg-5">
-                <form method="get" action="{% url "new_commute" %}">
-                    <button class="btn btn-xlarge">Fahrt erstellen / Create Commute</button>
+                <form method="get" action="{% url 'new_commute' %}">
+                    <button class="btn btn-xlarge">Create Commute</button>
                 </form>
             </div>
-            <div class="col-lg-7">
-                <p class="desc">
-                    Biete deine Kollegen eine Mitfahrgelegenheit an /
-                    <br>Offer a Ride to your Colleagues
-                </p>
-            </div>
+
         </div>
         <div class="row irow">
             <div class="col-lg-5">
-                <form method="get" action="{% url "search_commute" %}">
+                <form method="get" action="{% url 'search_commute' %}">
                     <button class="btn btn-xlarge">
-                        Mitfahrgelegenheit finden / Find Commute
+                        Find Commute
                     </button>
                 </form>
             </div>
-            <div class="col-lg-7">
-                <p class="desc">
-                    Finde eine Mitfahrgelegenheit /
-                    <br>Find someone who can give you a ride
-                </p>
-            </div>
+
         </div>
         <div class="row irow">
             <div class="col-lg-5">
-                <form method="get" action="{% url "my_commutes" %}">
-                    <button class="btn btn-xlarge">Meine Fahrten/ My Commutes</button>
+                <form method="get" action="{% url 'my_commutes' %}">
+                    <button class="btn btn-xlarge">My Commutes</button>
                 </form>
-            </div>
-            <div class="col-lg-7">
-                <p class="desc">
-                    Überblick über deine erstellten Fahrten /
-                    <br>See your Posted Commutes
-                </p>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>

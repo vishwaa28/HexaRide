@@ -15,13 +15,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'op7*^-7$x#)y9&^3ode$a#ane+7ee!r3o9qphftj#m&1x3xdqy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TIME_ZONE = 'Europe/Berlin'
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -69,11 +69,14 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Directory where static files will be collected (used in production)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # or any other name
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'ui', 'static'),
-)
+# Directories to search for static files during development
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'ui', 'static'),  # Path where static files are kept in development
+]
+
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -99,3 +102,6 @@ TEMPLATES = [
 AUTH_USER_MODEL = 'ui.User'
 LOGIN_URL = 'home_page'
 LOGIN_REDIRECT_URL = 'user_home'
+
+
+
